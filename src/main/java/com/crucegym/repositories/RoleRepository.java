@@ -1,14 +1,13 @@
 package com.crucegym.repositories;
 
-import com.crucegym.entities.User;
+import com.crucegym.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface RoleRepository extends JpaRepository<Role, Byte> {
 
-    Optional<User> findByUsername(String username);
-
+    Optional<Role> findByRoleName(String roleName);
 }

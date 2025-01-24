@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
@@ -23,8 +22,7 @@ public class User {
     private String username;
 
     @NotBlank(message = "La contraseña no puede estar vacía ni ser solo espacios")
-    @Size(min = 4, max = 15)
-    @Column(name="password", nullable = false)
+    @Column(name="password", nullable = false, length = 255)
     private String password;
 
     @NotBlank(message = "El email es obligatorio")
@@ -38,23 +36,12 @@ public class User {
     @OneToMany(mappedBy = "idUser")       // Relación con 'Set'
     private List<Set> sets;
 
+    @ManyToOne                            // Relación con 'Rol'
+    private Role role;
+
     public User() {
     }
 
-    public User(String username, String password, String email, List<Training> trainings) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.trainings = trainings;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -80,6 +67,30 @@ public class User {
         this.email = email;
     }
 
+    public List<Training> getTrainings() {
+        return trainings;
+    }
+
+    public void setTrainings(List<Training> trainings) {
+        this.trainings = trainings;
+    }
+
+    public List<Set> getSets() {
+        return sets;
+    }
+
+    public void setSets(List<Set> sets) {
+        this.sets = sets;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -87,6 +98,9 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", trainings=" + trainings +
+                ", sets=" + sets +
+                ", role=" + role +
                 '}';
     }
 }
