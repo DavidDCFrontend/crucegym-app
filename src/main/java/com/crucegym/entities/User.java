@@ -30,18 +30,31 @@ public class User {
     @Column(name="email", unique = true, nullable = false, length = 40)
     private String email;
 
-    @OneToMany(mappedBy = "idUser")       // Relación con 'Training'
+    @Column(columnDefinition = "VARCHAR (15) DEFAULT 'USER'", nullable = false)
+    private String role = "USER";
+
+    @OneToMany(mappedBy = "idUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)       // Relación con 'Training'
     private List<Training> trainings;
 
-    @OneToMany(mappedBy = "idUser")       // Relación con 'Set'
+    @OneToMany(mappedBy = "idUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)       // Relación con 'Set'
     private List<Set> sets;
-
-    @ManyToOne                            // Relación con 'Rol'
-    private Role role;
 
     public User() {
     }
 
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -67,6 +80,14 @@ public class User {
         this.email = email;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public List<Training> getTrainings() {
         return trainings;
     }
@@ -83,14 +104,6 @@ public class User {
         this.sets = sets;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -98,9 +111,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", trainings=" + trainings +
-                ", sets=" + sets +
-                ", role=" + role +
+                ", role='" + role + '\'' +
                 '}';
     }
 }
