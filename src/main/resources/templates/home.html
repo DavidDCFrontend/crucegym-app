@@ -9,11 +9,11 @@
 <body>
     <h1>Welcome!</h1>
     <div style="border: 1px solid red;">
-        <form action="/insertSet" method="post">
+        <form th:action="@{/insertSet}" method="post" th:object="${setRegistrationDTO}">
             <!-- Campo para seleccionar el peso -->
             <div>
-                <label for="peso">Peso (kg):</label>
-                <select id="peso" name="peso" required>
+                <label for="weight">Peso (kg):</label>
+                <select id="weight" th:field="*{weight}" required>
                     <option value="10">10 kg</option>
                     <option value="20">20 kg</option>
                     <option value="30">30 kg</option>
@@ -24,8 +24,22 @@
             <!-- Campo para ingresar las repeticiones -->
             <div>
                 <label for="repeticiones">Repeticiones:</label>
-                <input type="number" id="repeticiones" name="repeticiones" min="1" required>
+                <input type="number" id="repeticiones" th:field="*{reps}" min="1" required>
             </div>
+
+            <!-- Campo para ingresar el orden de la serie -->
+            <div>
+                <label for="order">Orden: </label>
+                <input type="number" th:field="*{order}" id="order" min="0">
+            </div>
+
+            <!-- Campo para ingresar la fecha -->
+            <div>
+                <label for="date">Fecha: </label>
+                <input type="date" id="date" th:field="*{date}" required>
+            </div>
+
+            <input type="hidden" name="idExercise" th:value="1">
 
             <!-- Botón para enviar el formulario -->
             <div>
