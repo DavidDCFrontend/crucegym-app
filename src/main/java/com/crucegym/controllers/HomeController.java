@@ -1,22 +1,34 @@
 package com.crucegym.controllers;
 
-import com.crucegym.dtos.SetRegistrationDTO;
+import com.crucegym.entities.User;
+import com.crucegym.repositories.UserRepository;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.time.LocalDate;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/home")
-    public String showHome(Model model) {
+    public String showHome(Authentication authentication, HttpSession session) {
 
-        SetRegistrationDTO registrationDTO = new SetRegistrationDTO();
-        registrationDTO.setDate(LocalDate.now());
+        String usernameAuthenticated = authentication.getName();
 
-        model.addAttribute("setRegistrationDTO", registrationDTO);
+        Optional<User> optionalUser = userRepository.findByUsername(usernameAuthenticated);
+
+        if(optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            session.setAttribute("userId", user.getId());
+        } else {
+            throw new RuntimeException("Usuario no encontrado.");
+        }
 
         return "home";
     }

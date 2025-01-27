@@ -1,8 +1,6 @@
 package com.crucegym.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
@@ -44,11 +42,24 @@ public class Set {
     @OneToOne(mappedBy = "idSet", cascade = CascadeType.ALL)      // Relación con 'Record'
     private Record record;
 
-    public Set() {
+    public Set(User idUser, Exercise idExercise, LocalDate setDate, Short reps, Byte setOrder, Short weight) {
+        this.idUser = idUser; // Asignar el objeto completo User
+        this.idExercise = idExercise; // Asignar el objeto completo Exercise
+        this.weight = weight;
+        this.reps = reps;
+        this.setOrder = setOrder;
+        this.setDate = setDate;
     }
 
-    public Set(Short idExercise, Integer idUser, LocalDate date, Byte order, Short weight) {
-    }
+    /*public Set(User idUser, Exercise idExercise, Short weight, Short reps, Byte setOrder, LocalDate setDate, Record record) {
+        this.idUser = idUser;
+        this.idExercise = idExercise;
+        this.weight = weight;
+        this.reps = reps;
+        this.setOrder = setOrder;
+        this.setDate = setDate;
+        this.record = record;
+    }*/
 
     public Long getId() {
         return id;
@@ -113,4 +124,6 @@ public class Set {
     public void setRecord(Record record) {
         this.record = record;
     }
+
+
 }

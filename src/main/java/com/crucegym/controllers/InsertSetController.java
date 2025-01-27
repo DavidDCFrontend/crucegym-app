@@ -19,6 +19,7 @@ public class InsertSetController {
 
         try {
             setService.registerSet(registrationDTO);
+            System.out.println("Tu serie ha sido guardada correctamente");
             return "redirect:/home";
         } catch (RuntimeException e) {
             System.out.println("Error: " + e.getMessage());
