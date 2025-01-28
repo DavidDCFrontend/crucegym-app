@@ -43,8 +43,8 @@ public class Set {
     private Record record;
 
     public Set(User idUser, Exercise idExercise, LocalDate setDate, Short reps, Byte setOrder, Short weight) {
-        this.idUser = idUser; // Asignar el objeto completo User
-        this.idExercise = idExercise; // Asignar el objeto completo Exercise
+        this.idUser = idUser;
+        this.idExercise = idExercise;
         this.weight = weight;
         this.reps = reps;
         this.setOrder = setOrder;

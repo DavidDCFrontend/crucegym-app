@@ -12,29 +12,85 @@
       display: inline-block;
     }
   </style>
+  <script>
+        // Función para enviar el formulario al hacer clic en la imagen
+        function submitForm(idExercise, exerciseName) {
+            // Crear un formulario dinámico
+            const form = document.createElement("form");
+            form.method = "post";
+            form.action = "/exercise"; // Ruta a la que se enviará el formulario
+
+            // Crear un campo oculto para el ID del ejercicio
+            const idExerciseInput = document.createElement("input");
+            idExerciseInput.type = "hidden";
+            idExerciseInput.name = "idExercise";
+            idExerciseInput.value = idExercise;
+            form.appendChild(idExerciseInput);
+
+            // Crear un campo oculto para el nombre del ejercicio
+            const exerciseNameInput = document.createElement("input");
+            exerciseNameInput.type = "hidden";
+            exerciseNameInput.name = "exerciseName";
+            exerciseNameInput.value = exerciseName;
+            form.appendChild(exerciseNameInput);
+
+            // Agregar el formulario al cuerpo del documento y enviarlo
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
 </head>
 <body>
 
   <div>
-    <h2>Ejercicio 1</h2>
-    <a th:href="@{/exercise(idExercise=1)}" >
-      <img th:src="@{images/aparato1.png}" alt="Descripción de la imagen" style="max-width: 100%; height: auto;">
-    </a>
+    <h2>Press banca</h2>
+    <img th:src="@{images/aparato1.png}"
+         alt="Descripción de la imagen"
+         style="max-width: 100%; height: auto; cursor: pointer;"
+         onclick="submitForm(1, 'Press banca')">
   </div>
 
   <div>
-    <h2>Ejercicio 2</h2>
-    <a th:href="@{/exercise(idExercise=2)}" >
+    <h2>Pectoral fly</h2>
+    <img th:src="@{images/aparato2.jpg}"
+         alt="Descripción de la imagen"
+         style="max-width: 100%; height: auto; cursor: pointer;"
+         onclick="submitForm(2, 'Pectoral fly')">
+  </div>
+
+  <div>
+    <h2>Press francés</h2>
+    <img th:src="@{images/aparato3.jpg}"
+         alt="Descripción de la imagen"
+         style="max-width: 100%; height: auto; cursor: pointer;"
+         onclick="submitForm(3, 'Press francés')">
+  </div>
+
+</body>
+</html>
+
+<!--
+<div>
+    <h2>Press banca</h2>
+    <form th:action="@{/exercise}">
+      <a th:href="@{/exercise(idExercise=1, exerciseName='Press banca')}" >
+        <img th:src="@{images/aparato1.png}" alt="Descripción de la imagen" style="max-width: 100%; height: auto;">
+      </a>
+    </form>
+  </div>
+
+  <div>
+    <h2>Pectoral fly</h2>
+    <a th:href="@{/exercise(idExercise=2, exerciseName='Pectoral fly')}" >
       <img th:src="@{images/aparato2.jpg}" alt="Descripción de la imagen" style="max-width: 100%; height: auto;">
     </a>
   </div>
 
   <div>
-    <h2>Ejercicio 3</h2>
-    <a th:href="@{/exercise(idExercise=3)}" >
+    <h2>Press francés</h2>
+    <a th:href="@{/exercise(idExercise=3, exerciseName='Press francés')}" >
       <img th:src="@{images/aparato3.jpg}" alt="Descripción de la imagen" style="max-width: 100%; height: auto;">
     </a>
   </div>
 
-</body>
-</html>
+-->

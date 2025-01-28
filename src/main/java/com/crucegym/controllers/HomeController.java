@@ -17,18 +17,7 @@ public class HomeController {
     private UserRepository userRepository;
 
     @GetMapping("/home")
-    public String showHome(Authentication authentication, HttpSession session) {
-
-        String usernameAuthenticated = authentication.getName();
-
-        Optional<User> optionalUser = userRepository.findByUsername(usernameAuthenticated);
-
-        if(optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            session.setAttribute("userId", user.getId());
-        } else {
-            throw new RuntimeException("Usuario no encontrado.");
-        }
+    public String showHome() {
 
         return "home";
     }

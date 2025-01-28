@@ -7,7 +7,7 @@
     <title>Login - CGA</title>
 </head>
 <body>
-    <h1>Welcome!</h1>
+    <h1 th:text="${exerciseName}"></h1>
     <div style="border: 1px solid red;">
         <form th:action="@{/insertSet}" method="post" th:object="${setRegistrationDTO}">
             <!-- Campo para seleccionar el peso -->
@@ -39,7 +39,6 @@
                 <input type="date" id="date" th:field="*{date}" required>
             </div>
 
-            <input type="hidden" name="idUser" th:value="*{idUser}">
             <input type="hidden" name="idExercise" th:value="*{idExercise}">
 
             <!-- Botón para enviar el formulario -->
