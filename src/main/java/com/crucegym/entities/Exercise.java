@@ -63,4 +63,15 @@ public class Exercise {
     public void setSetList(List<Set> setList) {
         this.setList = setList;
     }
+
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", description='" + description + '\'' +
+                ", setList=" + setList +
+                '}';
+    }
 }

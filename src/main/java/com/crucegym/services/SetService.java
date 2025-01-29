@@ -29,7 +29,7 @@ public class SetService {
         Exercise exercise = exerciseRepository.findById(registrationDTO.getIdExercise())
                 .orElseThrow(() -> new RuntimeException("Ejercicio no encontrado"));
 
-        Set set = new Set(
+        Set newSet = new Set(
                 user,
                 exercise,
                 registrationDTO.getDate(),
@@ -37,6 +37,9 @@ public class SetService {
                 registrationDTO.getOrder(),
                 registrationDTO.getWeight());
 
-        return setRepository.save(set);
+        // Guardar set en la BBDD
+        Set savedSet = setRepository.save(newSet);
+
+        return savedSet;
     }
 }

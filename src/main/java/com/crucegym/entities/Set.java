@@ -19,7 +19,7 @@ public class Set {
     private User idUser;
 
     @ManyToOne                                               // Relación con 'Exercise'
-    @JoinColumn (name = "id_exersice", nullable = false)
+    @JoinColumn (name = "id_exercise", nullable = false)
     private Exercise idExercise;
 
     @NotNull(message = "Debe indicar el peso/carga. Si es peso libre marque 0")
@@ -41,6 +41,9 @@ public class Set {
 
     @OneToOne(mappedBy = "idSet", cascade = CascadeType.ALL)      // Relación con 'Record'
     private Record record;
+
+    public Set() {
+    }
 
     public Set(User idUser, Exercise idExercise, LocalDate setDate, Short reps, Byte setOrder, Short weight) {
         this.idUser = idUser;
@@ -126,4 +129,14 @@ public class Set {
     }
 
 
+    @Override
+    public String toString() {
+        return "Set{" +
+                "id=" + id +
+                ", weight=" + weight +
+                ", reps=" + reps +
+                ", setOrder=" + setOrder +
+                ", setDate=" + setDate +
+                '}';
+    }
 }

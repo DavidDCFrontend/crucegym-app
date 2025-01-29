@@ -8,6 +8,15 @@
 </head>
 <body>
     <h1 th:text="${exerciseName}"></h1>
+    <h2>Mejores marcas personales: </h2>
+    <h3>"Récord mínimo 5 reps":
+        <span th:if="${weightFiveRepsRec != null}">
+            <span style="color:red;" th:text="${repsFiveRepsRec} + ' repeticiones con ' + ${weightFiveRepsRec} + ' kg'"></span>
+        </span>
+        <span th:unless="${weightFiveRepsRec != null}">
+            No hay registro aún
+        </span>
+    </h3>
     <div style="border: 1px solid red;">
         <form th:action="@{/insertSet}" method="post" th:object="${setRegistrationDTO}">
             <!-- Campo para seleccionar el peso -->

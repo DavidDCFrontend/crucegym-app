@@ -29,7 +29,7 @@ public class UserService {
         String encryptedPassword = passwordEncoder.encode(registrationDTO.getPassword());
 
         // Crear y guardar el usuario
-        User user = new User(registrationDTO.getUsername(), encryptedPassword, registrationDTO.getEmail());
-        return userRepository.save(user);
+        User newUser = new User(registrationDTO.getUsername(), encryptedPassword, registrationDTO.getEmail());
+        return userRepository.save(newUser);
     }
 }
