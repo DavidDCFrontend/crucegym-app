@@ -22,7 +22,8 @@ public class SetService {
     @Autowired
     private ExerciseRepository exerciseRepository;
 
-    public Set registerSet(SetRegistrationDTO registrationDTO) {
+    public Set registerSet(SetRegistrationDTO registrationDTO,
+                           String action) {
 
         User user = userRepository.findById(registrationDTO.getIdUser())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));

@@ -7,6 +7,12 @@
     <title>Login - CGA</title>
 </head>
 <body>
+
+    <div id="entrenamiento-icono">
+        <a th:href="@{/training}" style="text-decoration: none;">🏋️‍</a> <!-- Ícono de mancuerna -->
+        <span id="contador-series" th:text="${session.trainingSeriesIds != null ? #lists.size(session.trainingSeriesIds) : 0}">0</span> <!-- Contador de series -->
+    </div>
+
     <h1 th:text="${exerciseName}"></h1>
     <h2>Mejores marcas personales: </h2>
     <h3>"Récord mínimo 5 reps":
@@ -36,25 +42,17 @@
                 <input type="number" id="repeticiones" th:field="*{reps}" min="1" required>
             </div>
 
-            <!-- Campo para ingresar el orden de la serie -->
-            <div>
-                <label for="order">Orden: </label>
-                <input type="number" th:field="*{order}" id="order" min="0">
-            </div>
-
-            <!-- Campo para ingresar la fecha -->
-            <div>
-                <label for="date">Fecha: </label>
-                <input type="date" id="date" th:field="*{date}" required>
-            </div>
-
+            <!-- Campo oculto id ejercicio -->
             <input type="hidden" name="idExercise" th:value="*{idExercise}">
 
-            <!-- Botón para enviar el formulario -->
+            <!-- Botones para enviar el formulario -->
             <div>
-                <button type="submit">Enviar</button>
+                <button type="submit" name="action" value="register">Guardar serie</button>
+                <button type="submit" name="action" value="registerAndAdd">Guardar serie y añadir al entrenamiento</button>
             </div>
         </form>
+
     </div>
+    <a th:href="@{/home}">Volver al menú principal</a>
 </body>
 </html>

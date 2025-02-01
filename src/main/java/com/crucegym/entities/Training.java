@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "trainings")
@@ -18,7 +19,6 @@ public class Training {
     @JoinColumn(name = "id_user", nullable = false)
     private User idUser;
 
-    @NotBlank(message = "La fecha no puede estar vacía")
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
@@ -30,14 +30,15 @@ public class Training {
     @Column(name = "comments", length = 150)
     private String comments;
 
-    public Training(Integer id) {
+    @OneToMany(mappedBy = "idTraining", cascade = CascadeType.ALL, fetch = FetchType.LAZY)       // Relación con 'TrainingDetails'
+    private List<TrainingDetails> trainingDetails;
+
+    public Training() {
     }
 
-    public Training(User user, LocalDate date, String description, String comments) {
+    public Training(User user, LocalDate date) {
         this.idUser = user;
         this.date = date;
-        this.description = description;
-        this.comments = comments;
     }
 
     public Integer getId() {
@@ -78,5 +79,15 @@ public class Training {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    @Override
+    public String toString() {
+        return "Training{" +
+                "id=" + id +
+                ", date=" + date +
+                ", description='" + description + '\'' +
+                ", comments='" + comments + '\'' +
+                '}';
     }
 }

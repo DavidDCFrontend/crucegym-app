@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "sets")
@@ -41,6 +42,9 @@ public class Set {
 
     @OneToOne(mappedBy = "idSet", cascade = CascadeType.ALL)      // Relación con 'Record'
     private Record record;
+
+    @OneToMany(mappedBy = "idSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)    // Relación con 'TrainingDetails'
+    private List<TrainingDetails> trainingDetails;
 
     public Set() {
     }

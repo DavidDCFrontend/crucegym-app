@@ -42,6 +42,11 @@
 </head>
 <body>
 
+  <div id="entrenamiento-icono">
+    <span>🏋️‍</span> <!-- Ícono de mancuerna -->
+    <span id="contador-series" th:text="${session.trainingSeriesIds != null ? #lists.size(session.trainingSeriesIds) : 0}">0</span> <!-- Contador de series -->
+  </div>
+
   <div>
     <h2>Press banca</h2>
     <img th:src="@{images/aparato1.png}"
@@ -70,27 +75,14 @@
 </html>
 
 <!--
-<div>
+
+  <div>
     <h2>Press banca</h2>
-    <form th:action="@{/exercise}">
-      <a th:href="@{/exercise(idExercise=1, exerciseName='Press banca')}" >
-        <img th:src="@{images/aparato1.png}" alt="Descripción de la imagen" style="max-width: 100%; height: auto;">
-      </a>
-    </form>
+    <img th:src="@{images/aparato1.png}"
+         alt="Descripción de la imagen"
+         style="max-width: 100%; height: auto; cursor: pointer;"
+         onclick="submitForm(1, 'Press banca')">
   </div>
 
-  <div>
-    <h2>Pectoral fly</h2>
-    <a th:href="@{/exercise(idExercise=2, exerciseName='Pectoral fly')}" >
-      <img th:src="@{images/aparato2.jpg}" alt="Descripción de la imagen" style="max-width: 100%; height: auto;">
-    </a>
-  </div>
-
-  <div>
-    <h2>Press francés</h2>
-    <a th:href="@{/exercise(idExercise=3, exerciseName='Press francés')}" >
-      <img th:src="@{images/aparato3.jpg}" alt="Descripción de la imagen" style="max-width: 100%; height: auto;">
-    </a>
-  </div>
 
 -->
