@@ -19,7 +19,7 @@ public class RegisterTrainingController {
     @Autowired
     private TrainingService trainingService;
 
-    @PostMapping("/registerTraining")
+    @PostMapping("/register-training")
     public String registerTraining(HttpSession session,
                                    Authentication authentication,
                                    Model model) {

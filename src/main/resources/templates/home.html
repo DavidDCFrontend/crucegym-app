@@ -42,6 +42,8 @@
 </head>
 <body>
 
+  <a th:href="@{/training-history-form}">Ver el historial de entrenamientos</a>
+
   <div id="entrenamiento-icono">
     <span>🏋️‍</span> <!-- Ícono de mancuerna -->
     <span id="contador-series" th:text="${session.trainingSeriesIds != null ? #lists.size(session.trainingSeriesIds) : 0}">0</span> <!-- Contador de series -->

@@ -1,5 +1,6 @@
 package com.crucegym.services;
 
+import com.crucegym.dtos.RequestedTrainingDTO;
 import com.crucegym.dtos.TrainingRequestDTO;
 import com.crucegym.entities.*;
 import com.crucegym.repositories.SetRepository;
@@ -7,8 +8,12 @@ import com.crucegym.repositories.TrainingDetailsRepository;
 import com.crucegym.repositories.TrainingRepository;
 import com.crucegym.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.util.List;
 
 
 @Service
@@ -72,4 +77,11 @@ public class TrainingService {
             previousExerciseId = currentExerciseId;
         }
     }
+
+    public List<RequestedTrainingDTO> getRequestedTraining(@Param("userId") Integer userId,
+                                                           @Param("date")LocalDate date) {
+
+        return trainingRepository.findByUserAndDate(userId, date);
+    }
+
 }
