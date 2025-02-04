@@ -4,6 +4,7 @@ import com.crucegym.dtos.SetRegistrationDTO;
 import com.crucegym.entities.Set;
 import com.crucegym.security.CustomUserDetails;
 import com.crucegym.services.RecordService;
+import com.crucegym.services.RepetitionMaximumService;
 import com.crucegym.services.SetService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,11 +29,16 @@ public class InsertSetController {
     @Autowired
     RecordService recordService = new RecordService();
 
+    @Autowired
+    private RepetitionMaximumService repetitionMaximumService;
+
     @PostMapping("/insertSet")
     public String inserSet(@ModelAttribute SetRegistrationDTO registrationDTO,
                            @RequestParam("action") String action,
+                           @RequestParam("exerciseName") String exerciseName,
                            Authentication authentication,
                            HttpSession session,
+                           RedirectAttributes redirectAttributes,
                            Model model) {
 
         try {
@@ -76,14 +83,20 @@ public class InsertSetController {
                 session.setAttribute("trainingSeriesIds", trainingSeriesIds);
             }
 
-            // Comprobar record y registrar nueva serie si es un nuevo record
+            // Comprobar records y registrar nueva serie si es un nuevo record
             recordService.updateFiveRepsRecord(registrationDTO, savedSet);
+            recordService.updateVolumeLoadRecord(registrationDTO, savedSet);
+            repetitionMaximumService.updateOneRepetitionMaximum(registrationDTO, savedSet);
 
-            return "exercise";
+            // Pasar los parámetros necesarios para la redirección
+            redirectAttributes.addAttribute("idExercise", registrationDTO.getIdExercise());
+            redirectAttributes.addAttribute("exerciseName", exerciseName);
+
+            return "redirect:/exercise";
         } catch (RuntimeException e) {
             System.out.println("Error: " + e.getMessage());
             model.addAttribute("error", e.getMessage());
-            return "home";
+            return "redirect:/index";
         }
     }
 }

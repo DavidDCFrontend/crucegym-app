@@ -50,11 +50,11 @@ public class RegisterTrainingController {
             session.removeAttribute("trainingSeriesIds");
 
             model.addAttribute("message", "Entrenamiento registrado correctamente");
-            return "home";
+            return "index";
 
         } catch (Exception e) {
             model.addAttribute("error", "Error al registrar el entrenamiento: " + e.getMessage());
-            return "home";
+            return "index";
         }
 
     }

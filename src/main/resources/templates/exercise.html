@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - CGA</title>
+    <title>Ejercicio - CGA</title>
 </head>
 <body>
 
@@ -23,6 +23,23 @@
             No hay registro aún
         </span>
     </h3>
+    <h3>"Volumen de carga (Repeticiones x Peso)":
+        <span th:if="${weightVLRec != null}">
+            <span style="color:red;" th:text="${repsVLRec} + ' repeticiones con ' + ${weightVLRec} + ' kg'"></span>
+        </span>
+        <span th:unless="${weightVLRec != null}">
+            No hay registro aún
+        </span>
+    </h3>
+    <h3>"Repetición Máxima (1RM) por método indirecto":
+        <span th:if="${rm != null}">
+            <span style="color:red;" th:text="${rm} + ' kg'"></span>
+        </span>
+        <span th:unless="${rm != null}">
+            No hay registro aún
+        </span>
+    </h3>
+
     <div style="border: 1px solid red;">
         <form th:action="@{/insertSet}" method="post" th:object="${setRegistrationDTO}">
             <!-- Campo para seleccionar el peso -->
@@ -44,6 +61,8 @@
 
             <!-- Campo oculto id ejercicio -->
             <input type="hidden" name="idExercise" th:value="*{idExercise}">
+            <!-- Campo oculto nombre ejercicio -->
+            <input type="hidden" name="exerciseName" th:value="${exerciseName}">
 
             <!-- Botones para enviar el formulario -->
             <div>
@@ -53,6 +72,6 @@
         </form>
 
     </div>
-    <a th:href="@{/home}">Volver al menú principal</a>
+    <a th:href="@{/index}">Volver al menú principal</a>
 </body>
 </html>

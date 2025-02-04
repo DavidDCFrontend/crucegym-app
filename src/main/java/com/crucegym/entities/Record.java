@@ -6,14 +6,16 @@ import jakarta.persistence.*;
 import java.util.Optional;
 
 @Entity
-@Table(name = "records")
+@Table(name = "records",
+        uniqueConstraints = @UniqueConstraint(columnNames = "id"))
+
 public class Record {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne                                                     // Relación con 'Set'
+    @ManyToOne                                                     // Relación con 'Set'
     @JoinColumn(name = "id_set", referencedColumnName = "id")
     private Set idSet;
 

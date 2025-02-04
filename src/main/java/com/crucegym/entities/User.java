@@ -39,6 +39,9 @@ public class User {
     @OneToMany(mappedBy = "idUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)       // Relación con 'Set'
     private List<Set> sets;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)       // Relación con 'OneRepetitionMaximum'
+    private List<OneRepetitionMaximum> oneRepetitionMaximumList;
+
     public User() {
     }
 
@@ -102,6 +105,14 @@ public class User {
 
     public void setSets(List<Set> sets) {
         this.sets = sets;
+    }
+
+    public List<OneRepetitionMaximum> getOneRepetitionMaximumList() {
+        return oneRepetitionMaximumList;
+    }
+
+    public void setOneRepetitionMaximumList(List<OneRepetitionMaximum> oneRepetitionMaximumList) {
+        this.oneRepetitionMaximumList = oneRepetitionMaximumList;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.crucegym.repositories;
 
 import com.crucegym.entities.Record;
+import com.crucegym.entities.RecordType;
 import com.crucegym.entities.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +15,16 @@ public interface RecordRepository extends JpaRepository<Record, Integer> {
 
     @Query("SELECT s FROM Set s " +
            "JOIN Record r ON s.id = r.idSet.id " +
-           "WHERE r.type = 'ABSOLUTE' AND s.idExercise.id = :idExercise AND s.idUser.id = :idUser")
-    Optional<Set> findRecordBy5RepsInExercise(@Param("idExercise") Short idExercise, @Param("idUser") Integer idUser);
+           "WHERE r.type = :type AND s.idExercise.id = :idExercise AND s.idUser.id = :idUser")
+    Optional<Set> findRecordBy5RepsInExercise(@Param("type") RecordType type,
+                                              @Param("idExercise") Short idExercise,
+                                              @Param("idUser") Integer idUser);
+
+    @Query("SELECT s FROM Set s " +
+            "JOIN Record r ON s.id = r.idSet.id " +
+            "WHERE r.type = :type AND s.idExercise.id = :idExercise AND s.idUser.id = :idUser")
+    Optional<Set> findRecordByVolumeLoad(@Param("type") RecordType type,
+                                         @Param("idExercise") Short idExercise,
+                                         @Param("idUser") Integer idUser);
+
 }

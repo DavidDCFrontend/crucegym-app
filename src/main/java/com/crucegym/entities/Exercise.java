@@ -21,8 +21,11 @@ public class Exercise {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "idExercise")      // Relación con 'Set'
+    @OneToMany(mappedBy = "idExercise")     // Relación con 'Set'
     private List<Set> setList;
+
+    @OneToMany(mappedBy = "exercise")       // Relación con 'OneRepetitionMaximum'
+    private List<OneRepetitionMaximum> oneRepetitionMaximumList;
 
     public Short getId() {
         return id;
@@ -62,6 +65,14 @@ public class Exercise {
 
     public void setSetList(List<Set> setList) {
         this.setList = setList;
+    }
+
+    public List<OneRepetitionMaximum> getOneRepetitionMaximumList() {
+        return oneRepetitionMaximumList;
+    }
+
+    public void setOneRepetitionMaximumList(List<OneRepetitionMaximum> oneRepetitionMaximumList) {
+        this.oneRepetitionMaximumList = oneRepetitionMaximumList;
     }
 
     @Override

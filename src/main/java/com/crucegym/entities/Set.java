@@ -40,8 +40,8 @@ public class Set {
     @Column(name = "set_date", nullable = false)
     private LocalDate setDate;
 
-    @OneToOne(mappedBy = "idSet", cascade = CascadeType.ALL)      // Relación con 'Record'
-    private Record record;
+    @OneToMany(mappedBy = "idSet", cascade = CascadeType.ALL)      // Relación con 'Record'
+    private List<Record> record;
 
     @OneToMany(mappedBy = "idSet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)    // Relación con 'TrainingDetails'
     private List<TrainingDetails> trainingDetails;
@@ -124,14 +124,21 @@ public class Set {
         this.setDate = setDate;
     }
 
-    public Record getRecord() {
+    public List<Record> getRecord() {
         return record;
     }
 
-    public void setRecord(Record record) {
+    public void setRecord(List<Record> record) {
         this.record = record;
     }
 
+    public List<TrainingDetails> getTrainingDetails() {
+        return trainingDetails;
+    }
+
+    public void setTrainingDetails(List<TrainingDetails> trainingDetails) {
+        this.trainingDetails = trainingDetails;
+    }
 
     @Override
     public String toString() {
