@@ -1,0 +1,282 @@
+/* FIRST MOBILE */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;  
+    box-sizing: border-box;
+}
+
+li {
+    list-style: none;
+}
+
+li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+html {
+    font-family: "Roboto Slab", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+body {   
+    background: linear-gradient(135deg,#00708a,#abd9c7);
+    min-height: 100vh;
+}
+
+/* HEADER */
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    color: #fff;
+}
+
+.site-header__logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.site-header__logo-image {
+    width: 50px;
+    height: 50px;
+}
+
+.site-header__counter-and-menu {
+    display: flex;
+    flex-direction: row-reverse;
+    gap:15px;
+}
+
+.site-header__menu-toggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.site-header__training-icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.site-header__training-icon {
+    font-size: 1.6rem;
+}
+
+.site-header__training-icon:hover {
+    font-size: 1.7rem;
+}
+
+.site-header__training-icon-counter {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red; /* Color llamativo */
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Hace el círculo */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1;
+}
+
+/* Menú oculto por defecto en móvil */
+.site-header__nav {
+    position: absolute;
+    top: 65px;
+    right: 0;
+    width: 100%;
+    background: #333;
+    display: none;
+    flex-direction: column;
+    text-align: center;
+    z-index: 2; 
+}
+
+/* Menú visible cuando está activo */
+.site-header__nav--open {
+    display: flex;
+}
+
+.overlay--active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.site-header__nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.site-header__nav-item {
+    padding: 1rem;
+    border-bottom: 1px solid #444;
+}
+
+.site-header__nav-item a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Mostrar menú cuando está activo */
+.site-header__nav--open {
+    display: flex;
+}
+
+
+.site-header__nav-item:first-child {
+    background-color: #00708a;
+    font-size: 1.5rem;
+}
+
+.site-header__nav-item {
+    background-color: #abd9c7;
+    font-size: 1.5rem;
+}
+
+
+/* EXERCISE */
+.exercise-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.exercise-card {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    text-align: center;
+    aspect-ratio: 1 / 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+.exercise-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.exercise-card__img {
+    width: 80%;
+    height: auto; 
+    object-fit: cover; 
+    max-height: 70%;
+    border-radius: 12px;
+}
+
+.exercise-card__title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Estilos para tablets y desktops */
+@media (min-width: 468px){
+    .exercise-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .site-header__nav-item {
+        font-size: 1.2rem;
+    }
+
+    .exercise-card__title {
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 684px){
+    .exercise-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 916px) {
+    .site-header__logo-image {
+        width: auto;
+        height: auto;
+    }
+
+    .site-header__menu-toggle {
+        display: none; /* Oculta el botón en escritorio */
+    }
+
+    .site-header__nav {
+        position: static;
+        display: flex;
+        justify-content: flex-end;
+        background: none;
+    }
+
+    .site-header__nav-item:first-child,
+    .site-header__nav-item{
+        background-color: rgba(0, 0, 0, 0);
+        border-bottom: none;
+        font-size: 1.1rem;
+    }
+
+    .site-header__nav-list {
+        display: flex;
+        justify-content: center;
+    }
+
+    .site-header__counter-and-menu {
+        order: 3;
+    }
+
+    .exercise-list {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (min-width: 1070px){
+    .exercise-list {
+        grid-template-columns: repeat(6, 1fr);
+        max-width: 85%;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 1070px){
+    .site-header__nav-item:first-child,
+    .site-header__nav-item{
+        font-size: 1.5rem;
+    }
+}

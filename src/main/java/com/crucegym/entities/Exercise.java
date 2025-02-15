@@ -21,6 +21,9 @@ public class Exercise {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "image", nullable = false, unique = true, length = 30)
+    private String image;
+
     @OneToMany(mappedBy = "idExercise")     // Relación con 'Set'
     private List<Set> setList;
 
@@ -59,6 +62,14 @@ public class Exercise {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public List<Set> getSetList() {
         return setList;
     }
@@ -82,7 +93,7 @@ public class Exercise {
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
-                ", setList=" + setList +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

@@ -5,9 +5,8 @@ import com.crucegym.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 public class AuthController {
@@ -16,15 +15,16 @@ public class AuthController {
     UserService userService = new UserService();
 
     @GetMapping("/login")
-    public String showLoginForm() {
+    public String showLoginForm(Model model) {
+        model.addAttribute("registrationDTO", new UserRegistrationDTO());
         return "login";
     }
 
-    @GetMapping("/register")
+  /*  @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("registrationDTO", new UserRegistrationDTO());
         return "register";
-    }
+    } */
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute UserRegistrationDTO registrationDTO, Model model) {

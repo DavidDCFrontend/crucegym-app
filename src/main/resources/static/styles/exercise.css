@@ -1,0 +1,253 @@
+/* FIRST MOBILE */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Roboto Slab", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+body {
+    background: linear-gradient(135deg, #00708a, #abd9c7);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.layout {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.icon-training {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+}
+
+.icon-training__icon{
+    font-size: 1.6rem;
+}
+
+.icon-training__icon:hover {
+    font-size: 1.7rem;
+    cursor:pointer
+}
+
+.icon-training__count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #fff;
+    color: #00708a;
+    font-size: 0.75rem;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.exercise-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+
+.record-heading {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #F2F2F2;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.record-heading span {
+    display: block;
+    font-size: 1rem;
+    color: #FFD700;
+    font-weight: 500;
+}
+
+.form-container {
+    padding: 1rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    margin-top: 20px;
+}
+
+.register-set-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.register-set-form__buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 5px;
+    border: none;
+    font-size: 1.1rem;
+    background-color: #00708a;
+    cursor: pointer;
+    transition: background 0.3s;
+    color: #fff;
+}
+
+button:hover {
+    background-color: #005f6b;
+}
+
+.return-home {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+label {
+    color: #F2F2F2;
+}
+
+.records-container {
+    width: 95%;
+}
+
+.custom-select {
+    padding: 5px;
+    font-size: 16px;
+    color: #34495E;
+    background-color: #FFFFFF;
+    border: 2px solid #00708A;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.custom-select:focus {
+    outline: none; /* Elimina el borde al enfocar */
+    border-color: #2E86C1; /* Cambia el color del borde al enfocar */
+}
+
+/* Estilos para las opciones */
+.custom-select option {
+    background-color: #FFFFFF; /* Color de fondo de las opciones */
+    color: #34495E; /* Color del texto de las opciones */
+}
+
+.custom-select option {
+    background-color: #FFFFFF; /* Color de fondo */
+    color: #34495E; /* Color del texto */
+    padding: 10px; /* Espaciado interno */
+}
+
+.custom-select option:hover {
+    background-color: #2E86C1; /* Color de fondo al pasar el mouse */
+    color: #FFFFFF; /* Color del texto al pasar el mouse */
+}
+
+.custom-select option:checked {
+    background-color: #00708A; /* Color de fondo de la opción seleccionada */
+    color: #FFFFFF; /* Color del texto de la opción seleccionada */
+}
+
+input[type="number"] {
+    padding: 5px;
+    font-size: 16px;
+    color: #34495E;
+    background-color: #FFFFFF;
+    border: 2px solid #00708A;
+    border-radius: 5px;
+}
+
+/* Oculta las flechas en Chrome, Safari, Edge y Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Oculta las flechas en Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+/* TABLES Y PC'S*/
+@media (min-width: 422px) {
+
+    .layout {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        max-width: 422px;
+        padding: 10px;
+    }
+
+    .form-container {
+        margin-top: 35px;
+    }
+}
+
+@media (min-width: 780px) {
+    .layout {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .exercise-name {
+        font-size: 2.2rem;
+    }
+
+    .record-heading {
+        font-size: 1.4rem;
+    }
+
+    .record-heading span {
+        font-size: 1.2rem;
+    }
+
+    .return-contain {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .return-home {
+        position: static;
+        margin: 0 auto;
+    }
+}

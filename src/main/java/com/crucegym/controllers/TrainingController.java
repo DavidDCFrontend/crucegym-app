@@ -9,6 +9,6 @@ public class TrainingController {
     @GetMapping("/training")
     public String showCurrentTraining() {
 
-        return "training";
+        return "training-session";
     }
 }

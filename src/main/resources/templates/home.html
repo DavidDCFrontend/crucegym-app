@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/home.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+    <title>Home - CGA</title>
+</head>
+<body>
+
+    <div class="layout-home">
+
+        <header class="site-header">
+            <div class="site-header__logo">
+                <img th:src="@{/icons/icono-logo-white.svg}" alt="Logo" class="site-header__logo-image">
+            </div>
+
+            <div class="site-header__counter-and-menu">
+                <div class="site-header__counter">
+                    <div class="site-header__training-icon-container">
+                        <span class="site-header__training-icon">🏋️</span>
+                        <span class="site-header__training-icon-counter">0</span>
+                    </div>    
+                </div>
+
+                <button class="site-header__menu-toggle" aria-label="Abrir menú">
+                    ☰
+                </button>
+            </div>
+
+            <nav class="site-header__nav">
+                <ul class="site-header__nav-list">
+                    <li class="site-header__nav-item"><a href="">Home</a></li>
+                    <li class="site-header__nav-item"><a href="">Historial de entrenamientos</a></li>
+                    <li class="site-header__nav-item"><a href="">Sobre CruceGym App</a></li>
+                    <li class="site-header__nav-item"><a href="">FAQs</a></li>
+                    <li class="site-header__nav-item"><a href="">Contacto</a></li>
+                </ul>
+            </nav>
+        </header>
+
+         <!-- Overlay para oscurecer el fondo -->
+         <div class="overlay"></div>
+
+        <main class="exercise-list">
+            <article class="exercise-card" th:each="exercise : ${exercises}" th:data-id="${exercise.id}" th:data-name="${exercise.name}">
+                <h2 class="exercise-card__title" th:text="${exercise.name}">P</h2>
+                <img th:src="@{'/images/' + ${exercise.image} + '.webp'}"  th:alt="${exercise.name}" class="exercise-card__img" loading="lazy">
+            </article>
+
+            <form id="exerciseForm" th:action="@{/exercise}" method="post" style="display: none;">
+                <input type="hidden" name="idExercise" id="idExercise" />
+                <input type="hidden" name="exerciseName" id="exerciseName" />
+            </form>
+
+        </main>
+
+        <footer class="site-footer">
+            <p class="site-footer__text">CruceGym App - 2025</p>     
+        </footer>
+
+    </div>
+
+    <script th:src="@{/scripts/home.js}"></script>
+</body>
+</html>
