@@ -44,3 +44,19 @@ document.addEventListener("keydown", (event) => {
 });
 
 
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const video = document.querySelector(".hover-video");
+
+    video.addEventListener("mouseenter", function () {
+        video.play(); // Reproduce el video al hacer hover
+    });
+
+    video.addEventListener("mouseleave", function () {
+        video.pause(); // Pausa el video al salir del hover
+        video.currentTime = 0; // Opcional: Reinicia el video al principio
+    });
+});
+
+

@@ -250,7 +250,12 @@ button.close-btn:hover {
 }
 
 .error-message {
+    margin-top: 10px;
     color: red;
+}
+
+.input-error {
+    border-color: red !important;
 }
 
 .success-message {

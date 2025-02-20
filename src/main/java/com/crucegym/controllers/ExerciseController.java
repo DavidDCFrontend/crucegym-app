@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -41,8 +38,12 @@ public class ExerciseController {
         List<Integer>weights = getWeightsForExercise(idExercise);
         model.addAttribute("weights", weights);
 
-        // Reiniciar el orden al cambiar de ejercicio
-        session.setAttribute("lastOrder", 0);
+        // Reiniciar el orden al cambiar de ejercicio si es un nuevo ejercicio
+        Short lastExercise = (Short) session.getAttribute("lastExercise");
+
+        if(idExercise != lastExercise || lastExercise == null) {
+            session.setAttribute("lastOrder", 0);
+        }
 
         // Crear DTO
         SetRegistrationDTO registrationDTO = new SetRegistrationDTO();

@@ -1,0 +1,11 @@
+<div th:fragment="training-content">
+    <div th:each="exercise, iterStat : ${groupedExercises}">
+        <h3>Ejercicio [[${iterStat.index + 1}]] - [[${exercise.key}]]</h3>
+        <ul>
+            <li th:each="set, setIndex : ${exercise.value}">
+                [[${set}]]
+            </li>
+        </ul>
+    </div>
+</div>
+

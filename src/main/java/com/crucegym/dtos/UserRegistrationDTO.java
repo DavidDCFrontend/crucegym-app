@@ -4,6 +4,7 @@ public class UserRegistrationDTO {
 
     private String username;
     private String password;
+    private String passwordRepeated;
     private String email;
 
     // Getters y Setters
@@ -23,6 +24,14 @@ public class UserRegistrationDTO {
         this.password = password;
     }
 
+    public String getPasswordRepeated() {
+        return passwordRepeated;
+    }
+
+    public void setPasswordRepeated(String passwordRepeated) {
+        this.passwordRepeated = passwordRepeated;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -30,4 +39,15 @@ public class UserRegistrationDTO {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "UserRegistrationDTO{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordRepeated='" + passwordRepeated + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
+

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,12 +23,6 @@ public class TrainingHistoryController {
 
     @Autowired
     private TrainingService trainingService;
-
-    @GetMapping("/training-history-form")
-    public String showTrainingHistory() {
-
-        return "training-history-form";
-    }
 
     @PostMapping("/get-training")
     public String showTrainingHistory(@Param("date") LocalDate date,
@@ -38,13 +34,21 @@ public class TrainingHistoryController {
 
         List<RequestedTrainingDTO> requestedTraining = trainingService.getRequestedTraining(userId, date);
 
-        // Agrupar los entrenamientos por nombre de ejercicio
-        Map<String, List<RequestedTrainingDTO>> groupedByExercise = requestedTraining.stream()
-                .collect(Collectors.groupingBy(RequestedTrainingDTO::getExerciseName));
+        if(requestedTraining.isEmpty()) {
+            // No hay entrenamientos para la fecha seleccionada
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String formattedDate = date.format(formatter);
+            model.addAttribute("noTrainingFound", true);
+            model.addAttribute("trainingDate", formattedDate);
+        } else {
+            // Agrupar los entrenamientos por nombre de ejercicio
+            Map<String, List<RequestedTrainingDTO>> groupedByExercise = requestedTraining.stream()
+                    .collect(Collectors.groupingBy(RequestedTrainingDTO::getExerciseName));
 
-        model.addAttribute("groupedTraining", groupedByExercise);
-        model.addAttribute("trainingDate", requestedTraining.get(0).getDate());
+            model.addAttribute("groupedTraining", groupedByExercise);
+            model.addAttribute("trainingDate", date);
+        }
 
-        return "training-search-result";
+        return "fragments/history-training :: history-content";
     }
 }

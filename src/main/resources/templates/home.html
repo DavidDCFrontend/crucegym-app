@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/styles/home.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/modal-training.css}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
     <title>Home - CGA</title>
+    <style>
+
+
+    </style>
 </head>
 <body>
 
@@ -19,8 +24,8 @@
             <div class="site-header__counter-and-menu">
                 <div class="site-header__counter">
                     <div class="site-header__training-icon-container">
-                        <span class="site-header__training-icon">🏋️</span>
-                        <span class="site-header__training-icon-counter">0</span>
+                        <a class="site-header__training-icon" href="#" onclick="openTrainingModal()">🏋️</a>
+                        <span class="site-header__training-icon-counter" th:text="${session.trainingSeriesIds != null ? #lists.size(session.trainingSeriesIds) : 0}">0</span>
                     </div>    
                 </div>
 
@@ -31,8 +36,7 @@
 
             <nav class="site-header__nav">
                 <ul class="site-header__nav-list">
-                    <li class="site-header__nav-item"><a href="">Home</a></li>
-                    <li class="site-header__nav-item"><a href="">Historial de entrenamientos</a></li>
+                    <li class="site-header__nav-item"><a href="#" onclick="openHistoryTrainingForm()">Historial de entrenamientos</a></li>
                     <li class="site-header__nav-item"><a href="">Sobre CruceGym App</a></li>
                     <li class="site-header__nav-item"><a href="">FAQs</a></li>
                     <li class="site-header__nav-item"><a href="">Contacto</a></li>
@@ -44,9 +48,16 @@
          <div class="overlay"></div>
 
         <main class="exercise-list">
-            <article class="exercise-card" th:each="exercise : ${exercises}" th:data-id="${exercise.id}" th:data-name="${exercise.name}">
+    <!--        <article class="exercise-card" th:each="exercise : ${exercises}" th:data-id="${exercise.id}" th:data-name="${exercise.name}">
                 <h2 class="exercise-card__title" th:text="${exercise.name}">P</h2>
                 <img th:src="@{'/images/' + ${exercise.image} + '.webp'}"  th:alt="${exercise.name}" class="exercise-card__img" loading="lazy">
+            </article> -->
+            <article class="exercise-card">
+                <h2 class="exercise-card__title">Pectoral Fly</h2>
+                <video class="exercise-card__img hover-video" loading="lazy" muted>
+                    <source th:src="@{/images/pec-fly.mp4}" type="video/mp4">
+                    Tu navegador no soporta el elemento de video.
+                </video>
             </article>
 
             <form id="exerciseForm" th:action="@{/exercise}" method="post" style="display: none;">
@@ -57,11 +68,43 @@
         </main>
 
         <footer class="site-footer">
-            <p class="site-footer__text">CruceGym App - 2025</p>     
+            <p class="site-footer__text">&copy;CruceGym App - 2025</p>
         </footer>
+
+        <!-- Current Training Modal -->
+        <div id="trainingModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeTrainingModal()">&times;</span>
+                <h2 class="modal-content__title">Entrenamiento en curso</h2>
+
+                <div id="training-content">
+                    <!-- Aquí se cargarán las series con AJAX -->
+                </div>
+
+                <form id="registerTrainingForm" th:action="@{/register-training}" method="post">
+                    <button class="modal-content__btn" type="submit">Finalizar y guardar entrenamiento</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- History Training Modal -->
+        <div id="historyModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeHistoryModal()">&times;</span>
+                <h2 class="modal-content__title">Historial de entrenamientos</h2>
+                <form th:action="@{/get-training}" method="post" id="history-training-form">
+                    <input type="date" name="date" id="date">
+                    <button class="modal-content__btn" type="submit">Ver entrenamiento</button>
+                </form>
+                <div id="history-content" class="history-content">
+                    <!-- Aquí se cargará el entrenamiento buscado con AJAX -->
+                </div>
+            </div>
+        </div>
 
     </div>
 
     <script th:src="@{/scripts/home.js}"></script>
+    <script th:src="@{/scripts/modal-training.js}"></script>
 </body>
 </html>

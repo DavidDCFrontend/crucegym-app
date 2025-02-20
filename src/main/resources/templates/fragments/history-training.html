@@ -1,0 +1,18 @@
+<div th:fragment="history-content">
+  <div th:if="${noTrainingFound}">
+    <p class="no-training-message">No hay entrenamiento registrado en la fecha: <span th:text="${trainingDate}"></span></p>
+  </div>
+  <div th:unless="${noTrainingFound}">
+    <h3 class="training-date">Entrenamiento del día: <span th:text="${trainingDate}"></span></h3>
+
+    <!-- Iterar sobre los ejercicios agrupados -->
+    <div th:each="entry, iterStat : ${groupedTraining}">
+      <h3 class="exercise-name" th:text="'Ejercicio ' + ${iterStat.index + 1} + ' - ' + ${entry.key}"></h3> <!-- Nombre del ejercicio con el índice -->
+
+      <!-- Iterar sobre las series del ejercicio -->
+      <div th:each="training : ${entry.value}">
+        <p th:text="'Serie ' + ${training.setOrder} + ' - ' + ${training.reps} + ' repeticiones con ' + ${training.weight} + 'kg'"></p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,10 @@ html {
     font-style: normal;
 }
 
+li {
+    list-style: none;
+}
+
 body {
     background: linear-gradient(135deg, #00708a, #abd9c7);
     height: 100vh;

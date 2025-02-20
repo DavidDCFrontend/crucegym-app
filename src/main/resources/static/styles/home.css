@@ -73,6 +73,7 @@ body {
 
 .site-header__training-icon {
     font-size: 1.6rem;
+    text-decoration: none;
 }
 
 .site-header__training-icon:hover {
@@ -83,8 +84,8 @@ body {
     position: absolute;
     top: -5px;
     right: -10px;
-    background-color: red; /* Color llamativo */
-    color: white;
+    background-color: #fff; /* Color llamativo */
+    color: #00708a;
     font-size: 0.75rem;
     font-weight: bold;
     width: 18px;
@@ -204,6 +205,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.site-footer {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 10px;
+    width: 100%;
+    text-align: center;
 }
 
 

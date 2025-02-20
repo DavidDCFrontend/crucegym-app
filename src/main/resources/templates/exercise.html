@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/styles/exercise.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/modal-training.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
@@ -11,91 +12,108 @@
 </head>
 <body>
 
-<div class="layout">
+    <div class="layout">
 
-    <!-- ICON -->
-    <div class="icon-training" id="entrenamiento-icono">
-        <a class="icon-training__icon" th:href="@{/training}" style="text-decoration: none;">🏋️‍</a> <!-- Ícono de mancuerna -->
-        <span class="icon-training__count" id="contador-series" th:text="${session.trainingSeriesIds != null ? #lists.size(session.trainingSeriesIds) : 0}">0</span> <!-- Contador de series -->
+        <!-- ICON -->
+        <div class="icon-training" id="entrenamiento-icono">
+            <a class="icon-training__icon" href="#" onclick="openTrainingModal()" style="text-decoration: none;">🏋️‍</a>
+            <span class="icon-training__count" id="contador-series" th:text="${session.trainingSeriesIds != null ? #lists.size(session.trainingSeriesIds) : 0}">0</span> <!-- Contador de series -->
+        </div>
+
+        <!--EXERCISE NAME -->
+        <h1 class="exercise-name" th:text="${exerciseName}">Press banca</h1>
+
+        <!-- RECORDS -->
+        <section class="records-container">
+            <h3 class="record-heading">Mayor carga para un mínimo de 5 reps:
+                <span th:if="${weightFiveRepsRec != null}">
+                        <span th:text="${repsFiveRepsRec} + ' repeticiones con ' + ${weightFiveRepsRec} + ' kg'"></span>
+                    </span>
+                <span th:unless="${weightFiveRepsRec != null}">
+                        No hay registro aún
+                    </span>
+            </h3>
+            <h3 class="record-heading">Volumen de carga (Reps x Peso):
+                <span th:if="${weightVLRec != null}">
+                        <span th:text="${repsVLRec} + ' repeticiones con ' + ${weightVLRec} + ' kg'"></span>
+                    </span>
+                <span th:unless="${weightVLRec != null}">
+                        No hay registro aún
+                    </span>
+            </h3>
+            <h3 class="record-heading">Repetición Máxima (1RM) por método indirecto:
+                <span th:if="${rm != null}">
+                        <span th:text="${rm} + ' kg'"></span>
+                    </span>
+                <span th:unless="${rm != null}">
+                        No hay registro aún
+                    </span>
+            </h3>
+        </section>
+
+        <!-- REGISTER SET FORM -->
+        <div class="form-container">
+            <form class="register-set-form" th:action="@{/insertSet}" method="post" th:object="${setRegistrationDTO}">
+                <!-- Campo para seleccionar el peso -->
+                <div class="register-set-form__weight-container">
+                    <label for="weight">Peso (kg):</label>
+                    <select class="custom-select" id="weight" th:field="*{weight}" required>
+                        <option
+                                th:each="weight : ${weights}"
+                                th:value="${weight}"
+                                th:text="${weight + ' kg'}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Campo para ingresar las repeticiones -->
+                <div class="register-set-form__reps-container">
+                    <label for="repeticiones">Repeticiones:</label>
+                    <input type="number" id="repeticiones" th:field="*{reps}" min="1" max="50" required>
+                </div>
+
+                <!-- Campo oculto id ejercicio -->
+                <input type="hidden" name="idExercise" th:value="*{idExercise}">
+                <!-- Campo oculto nombre ejercicio -->
+                <input type="hidden" name="exerciseName" th:value="${exerciseName}">
+
+                <!-- Botones para enviar el formulario -->
+                <div class="register-set-form__buttons-container">
+                    <button class="register-set-form__button-set" type="submit" name="action" value="register">Guardar serie</button>
+                    <button class="register-set-form__button-training" type="submit" name="action" value="registerAndAdd">Guardar serie y añadir al entrenamiento</button>
+                </div>
+            </form>
+
+        </div>
+
+        <!-- RETURN -->
+        <div class="return-contain">
+            <a th:href="@{/home}" class="return-home">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Volver al menú principal
+            </a>
+        </div>
+
+        <!-- Modal -->
+        <div id="trainingModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeTrainingModal()">&times;</span>
+                <h2 class="modal-content__title">Entrenamiento en curso</h2>
+
+                <div id="training-content">
+                    <!-- Aquí se cargarán las series con AJAX -->
+                </div>
+
+                <form id="registerTrainingForm" th:action="@{/register-training}" method="post">
+                    <button class="modal-content__btn" type="submit">Finalizar y guardar entrenamiento</button>
+                </form>
+            </div>
+        </div>
+
     </div>
 
-    <!--EXERCISE NAME -->
-    <h1 class="exercise-name" th:text="${exerciseName}">Press banca</h1>
-
-    <!-- RECORDS -->
-    <section class="records-container">
-        <h3 class="record-heading">Mayor carga para un mínimo de 5 reps:
-            <span th:if="${weightFiveRepsRec != null}">
-                    <span th:text="${repsFiveRepsRec} + ' repeticiones con ' + ${weightFiveRepsRec} + ' kg'"></span>
-                </span>
-            <span th:unless="${weightFiveRepsRec != null}">
-                    No hay registro aún
-                </span>
-        </h3>
-        <h3 class="record-heading">Volumen de carga (Reps x Peso):
-            <span th:if="${weightVLRec != null}">
-                    <span th:text="${repsVLRec} + ' repeticiones con ' + ${weightVLRec} + ' kg'"></span>
-                </span>
-            <span th:unless="${weightVLRec != null}">
-                    No hay registro aún
-                </span>
-        </h3>
-        <h3 class="record-heading">Repetición Máxima (1RM) por método indirecto:
-            <span th:if="${rm != null}">
-                    <span th:text="${rm} + ' kg'"></span>
-                </span>
-            <span th:unless="${rm != null}">
-                    No hay registro aún
-                </span>
-        </h3>
-    </section>
-
-    <!-- REGISTER SET FORM -->
-    <div class="form-container">
-        <form class="register-set-form" th:action="@{/insertSet}" method="post" th:object="${setRegistrationDTO}">
-            <!-- Campo para seleccionar el peso -->
-            <div class="register-set-form__weight-container">
-                <label for="weight">Peso (kg):</label>
-                <select class="custom-select" id="weight" th:field="*{weight}" required>
-                    <option
-                            th:each="weight : ${weights}"
-                            th:value="${weight}"
-                            th:text="${weight + ' kg'}">
-                    </option>
-                </select>
-            </div>
-
-            <!-- Campo para ingresar las repeticiones -->
-            <div class="register-set-form__reps-container">
-                <label for="repeticiones">Repeticiones:</label>
-                <input type="number" id="repeticiones" th:field="*{reps}" min="1" max="50" required>
-            </div>
-
-            <!-- Campo oculto id ejercicio -->
-            <input type="hidden" name="idExercise" th:value="*{idExercise}">
-            <!-- Campo oculto nombre ejercicio -->
-            <input type="hidden" name="exerciseName" th:value="${exerciseName}">
-
-            <!-- Botones para enviar el formulario -->
-            <div class="register-set-form__buttons-container">
-                <button class="register-set-form__button-set" type="submit" name="action" value="register">Guardar serie</button>
-                <button class="register-set-form__button-training" type="submit" name="action" value="registerAndAdd">Guardar serie y añadir al entrenamiento</button>
-            </div>
-        </form>
-
-    </div>
-
-    <!-- RETURN -->
-    <div class="return-contain">
-        <a th:href="@{/home}" class="return-home">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Volver al menú principal
-        </a>
-    </div>
-
-</div>
-
+    <script th:src="@{/scripts/modal-training.js}"></script>
 </body>
 </html>

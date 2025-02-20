@@ -59,7 +59,9 @@ public class InsertSetController {
             lastOrder++;
             registrationDTO.setOrder(lastOrder.byteValue());
 
-            // Guardamos el nuevo orden en la sesión
+            // Guardamos el nuevo orden en la sesión y el último ejercicio realizado
+            Short lastExercise = registrationDTO.getIdExercise();
+            session.setAttribute("lastExercise", lastExercise);
             session.setAttribute("lastOrder", lastOrder);
 
             // Llamada al servicio para registrar la serie y almacenar su id

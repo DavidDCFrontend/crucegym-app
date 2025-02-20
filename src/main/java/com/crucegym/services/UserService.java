@@ -18,11 +18,11 @@ public class UserService {
 
     public User registerUser(UserRegistrationDTO registrationDTO) {
         // Validar que el username y el email no estén en uso
-        if (userRepository.existsByUsername(registrationDTO.getUsername())) {
-            throw new RuntimeException("El nombre de usuario ya está en uso");
+         if (userRepository.existsByUsername(registrationDTO.getUsername())) {
+            throw new RuntimeException("*El nombre de usuario ya está en uso");
         }
         if (userRepository.existsByEmail(registrationDTO.getEmail())) {
-            throw new RuntimeException("El correo electrónico ya está en uso");
+            throw new RuntimeException("*El correo electrónico ya está en uso");
         }
 
         // Cifrar el password antes de guardarlo
