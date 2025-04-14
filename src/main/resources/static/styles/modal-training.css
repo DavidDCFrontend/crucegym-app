@@ -55,6 +55,12 @@ div#training-content h3 {
     cursor: pointer;
 }
 
+/* Current training */                     /* ELIMINAR ESTOS ESTILOS SI NO SE PROGRAMA FUNCIONALIDAD DE EDICIÓN DE SERIES */
+.list-item {
+    display: inline;
+    margin-right: 20px;
+}
+
 /*  History training */
 .training-date {
     margin: 2rem 1rem 0.5rem;

@@ -24,6 +24,9 @@ public class Exercise {
     @Column(name = "image", nullable = false, unique = true, length = 30)
     private String image;
 
+    @Column(name = "machine_number", nullable = true, length = 5)
+    private String machineNumber;
+
     @OneToMany(mappedBy = "idExercise")     // Relación con 'Set'
     private List<Set> setList;
 
@@ -70,6 +73,14 @@ public class Exercise {
         this.image = image;
     }
 
+    public String getMachineNumber() {
+        return machineNumber;
+    }
+
+    public void setMachineNumber(String machineNumber) {
+        this.machineNumber = machineNumber;
+    }
+
     public List<Set> getSetList() {
         return setList;
     }
@@ -94,6 +105,7 @@ public class Exercise {
                 ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
+                ", machineNumber='" + machineNumber + '\'' +
                 '}';
     }
 }

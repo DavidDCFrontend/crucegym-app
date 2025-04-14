@@ -44,19 +44,51 @@ document.addEventListener("keydown", (event) => {
 });
 
 
-
+const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 document.addEventListener("DOMContentLoaded", function () {
-    const video = document.querySelector(".hover-video");
+    const videos = document.querySelectorAll(".hover-video");
 
-    video.addEventListener("mouseenter", function () {
-        video.play(); // Reproduce el video al hacer hover
-    });
+    videos.forEach(function (video) {
+        // Evento para dispositivos de escritorio (hover)
+        video.addEventListener("mouseenter", function () {
+            video.play(); // Reproduce el video al hacer hover
+        });
 
-    video.addEventListener("mouseleave", function () {
-        video.pause(); // Pausa el video al salir del hover
-        video.currentTime = 0; // Opcional: Reinicia el video al principio
+        video.addEventListener("mouseleave", function () {
+            video.pause(); // Pausa el video al salir del hover
+            video.currentTime = 0; // Reinicia el video al principio
+        });
+
+        // Evento para dispositivos móviles (touch)
+        if ('ontouchstart' in window) { // Verifica si el dispositivo es táctil
+            video.addEventListener("touchstart", function () {
+                if (video.paused) {
+                    video.play(); // Reproduce el video al tocar
+                } else {
+                    video.pause(); // Pausa el video si ya está reproduciéndose
+                    video.currentTime = 0; // Reinicia el video al principio
+                }
+            });
+        }
     });
 });
 
+/*
+document.addEventListener("DOMContentLoaded", function () {
+    const videos = document.querySelectorAll(".hover-video");
+
+    videos.forEach(function (video) {
+        video.addEventListener("mouseenter", function () {
+            video.play(); // Reproduce el video al hacer hover
+        });
+
+        video.addEventListener("mouseleave", function () {
+            video.pause(); // Pausa el video al salir del hover
+            video.currentTime = 0; // Opcional: Reinicia el video al principio
+        });
+    });
+});
+
+*/
 
